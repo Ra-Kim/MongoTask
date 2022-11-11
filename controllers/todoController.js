@@ -1,13 +1,17 @@
-import Todo from '../models/Todo.js'
-import mongoose from 'mongoose'
+const Todo = require('../models/Todo.js')
+const mongoose = require('mongoose')
+const MongoClient = require('mongodb').MongoClient
 
-export async function getTodos(req, res, next) {
+// const client = new MongoClient()
+
+exports.getTodos =  async(req, res, next) => {
     const all = await Todo.find()
-    res.json(all)
+    res.satus(200).json(all)
     console.log(all)
 }
 
-export async function createTodo(req, res, next) {
+exports.createTodo = async(req, res, next) =>  {
+    console.log("called the post")
     try {
         const todo = new Todo({
             _id: mongoose.Types.ObjectId(),
@@ -16,6 +20,7 @@ export async function createTodo(req, res, next) {
             timestamp: Date()
         })
         await todo.save()
+        console.log(todo)
         res.json(todo)
 
     } catch (error) {
@@ -25,12 +30,12 @@ export async function createTodo(req, res, next) {
     }
 }
 
-export async function getTodoById(req, res, next) {
+exports.getTodoById =  async(req, res, next)  => {
     const todo = await Todo.findById(req.params.todoId)
     res.json(todo)
 }
 
-export async function updateTodo(req, res, next) {
+exports.updateTodo =  async(req, res, next) =>  {
     const id = req.params.todoId
     const updated = req.body
     const options = {
@@ -42,7 +47,7 @@ export async function updateTodo(req, res, next) {
     })
 }
 
-export async function deleteTodo(req, res, next) {
+exports.deleteTodo =  async(req, res, next) => {
     try {
         const id = req.params.todoId
         const data = await Todo.findByIdAndDelete(id)

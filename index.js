@@ -1,8 +1,7 @@
-import express from 'express'
-import morgan from 'morgan'
-import mongoose from 'mongoose'
-
-import appRoutes from './routes/todoApp.js'
+const express = require('express')
+const  morgan = require('morgan')
+const mongoose = require('mongoose') 
+const appRoutes = require('./routes/todoRoutes.js')
 
 const port = process.env.PORT || 9000
 
@@ -31,7 +30,8 @@ app.use((error, req, res, next) => {
 })
 
 async function main() {
-    await mongoose.connect("mongodb+srv://sir_sanctified:s4nct1f13d@cluster0.dkrsxw2.mongodb.net/?retryWrites=true&w=majority")
+    // await mongoose.connect("mongodb+srv://sir_sanctified:s4nct1f13d@cluster0.dkrsxw2.mongodb.net/?retryWrites=true&w=majority")
+    await mongoose.connect('mongodb+srv://Stealth:Stealth01@stealth.r6hvkad.mongodb.net/stealth').then(console.log("connected"))
     app.listen(port, () => {
         console.log(`Server is running on port ${port}`)
     })

@@ -1,11 +1,11 @@
-import express from 'express'
-import {
+const express = require('express')
+const  {
     getTodos,
     getTodoById,
     updateTodo,
     deleteTodo,
     createTodo
-} from '../controllers/todoController.js'
+} =  require('../controllers/todoController.js')
 
 const appRoutes = express.Router()
 
@@ -15,4 +15,4 @@ appRoutes.get('/:todoId', getTodoById)
 appRoutes.patch('/:todoId', updateTodo)
 appRoutes.delete('/:todoId', deleteTodo)
 
-export default appRoutes
+module.exports = appRoutes
